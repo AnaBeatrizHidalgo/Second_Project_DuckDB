@@ -1,7 +1,10 @@
 import duckdb
 
+#Conexão com o banco
+con = duckdb.connect("project.db")
+
 # Creating the colunar table
-info_pais = duckdb.sql('''
+info_pais = con.sql('''
     CREATE TABLE info_pais 
         (Country VARCHAR,
          Year INTEGER,
@@ -13,7 +16,7 @@ info_pais = duckdb.sql('''
          GDP NUMERICAL,
          Eletricity_Investimente NUMERICAL,
          Health_Investimente NUMERICAL,
-         CO2_Emission NUMERICAL,
+         CO2_Emission_Total NUMERICAL,
          Power_Consumed NUMERICAL,
          Power_Import NUMERICAL,
          Renewble_Energy NUMERICAL,
@@ -27,7 +30,7 @@ info_pais = duckdb.sql('''
                        )''')
 
 # Importing a CSV file to in-memory database
-duckdb.sql("SELECT info_pais, COUNT(*) " \
+con.sql("SELECT info_pais, COUNT(*) " \
            "FROM read_csv('nosso.csv') " \
            "WHERE info_pais IS NOT NULL " \
            "GROUP BY info_pais " \
