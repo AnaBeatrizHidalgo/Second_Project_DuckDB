@@ -21,7 +21,6 @@ info_pais = con.sql('''
          Power_Import NUMERICAL,
          Renewble_Energy NUMERICAL,
          Sector VARCHAR,
-         Sector_Descrition VARCHAR,
          CO2_Emission_Sector NUMERICAL,
          Power_Source VARCHAR,
          Power_is_renewable  BOOLEAN,
@@ -31,7 +30,7 @@ info_pais = con.sql('''
 
 # Importing a CSV file to in-memory database
 con.sql("SELECT info_pais, COUNT(*) " \
-           "FROM read_csv('nosso.csv') " \
+           "FROM read_csv('./Datasets/DadosJuntos.csv') " \
            "WHERE info_pais IS NOT NULL " \
            "GROUP BY info_pais " \
            "ORDER BY info_pais").show()
