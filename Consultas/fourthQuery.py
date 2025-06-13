@@ -1,10 +1,8 @@
-import pandas as pd
 import duckdb
-from sqlalchemy import text
 
 # Query com as informações de emissão de CO2 globalmente,  extraindo o pais, o sector e a energia que mais emitem CO2
 
-query = text('''
+query = '''
 WITH SectorEmissions AS (
     SELECT
         Sector,
@@ -56,12 +54,8 @@ SELECT
 FROM info_pais AS ip
 ORDER BY co2_total_country DESC, co2_total_energia DESC, co2_total_sector DESC
 LIMIT 10; 
-''')
+'''
 
-with duckdb.connect("project.db") as conn:
-    df = pd.read_sql(query, conn)
-    conn.close()
-
-    df.to_csv("./Consultas/FourthQuery.csv")
-
-    print(df.to_string(index=False))
+with duckdb.connect("project.db") as con:
+    result = con.execute(query)
+    print(result.fetchdf())  # Converta para DataFrame pandas para melhor visualização

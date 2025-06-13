@@ -1,3 +1,9 @@
+"""
+Este codigo é apenas ilustrativo.
+Serve de referencia para entender como foram resgatados os dados do projeto passado: https://github.com/AnaBeatrizHidalgo/First-Database-
+Então ao tentar executar neste projeto, o codigo dara erro.
+"""
+
 import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv

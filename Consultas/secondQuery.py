@@ -1,10 +1,8 @@
-import pandas as pd
 import duckdb
-from sqlalchemy import text
 
 # Query com as informações de energy
 
-query = text('''
+query ='''
 Select Country,
        Year,
        Power_Source,
@@ -12,13 +10,10 @@ Select Country,
        Power_Generation,
        CO2_Emission_Power
 FROM info_pais
-ORDER BY Power_Generation DESC, CO2_Emission_Power DESC;
-''')
+ORDER BY Power_Generation DESC, CO2_Emission_Power DESC, Year DESC;
+'''
 
-with duckdb.connect("project.db") as conn:
-    df = pd.read_sql(query, conn)
-    conn.close()
 
-    df.to_csv("./Consultas/SecondQuery.csv")
-
-    print(df.to_string(index=False))
+with duckdb.connect("project.db") as con:
+    result = con.execute(query)
+    print(result.fetchdf())  # Converta para DataFrame pandas para melhor visualização

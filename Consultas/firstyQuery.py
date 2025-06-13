@@ -1,9 +1,6 @@
-import pandas as pd
 import duckdb
-from sqlalchemy import text
 
-# Query para analisar qual Setor possui a maior emissão de CO2 no ano de 2023
-query = text('''
+query = '''
 WITH SectorEmissions AS (
     SELECT 
         Country,
@@ -42,12 +39,9 @@ WHERE
     r.CountryRank = 1
 ORDER BY 
     t.Sector_Total_Emission DESC;
-''')
+'''
 
-with duckdb.connect("project.db") as conn:
-    df = pd.read_sql(query, conn)
-    conn.close()
-
-    df.to_csv("./Consultas/FirstQuery.csv")
-
-    print(df.to_string(index=False))
+with duckdb.connect("project.db") as con:
+    result = con.execute(query)
+    print(result.fetchdf())  # Converta para DataFrame pandas para melhor visualização
+    
