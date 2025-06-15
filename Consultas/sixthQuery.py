@@ -19,4 +19,6 @@ ORDER BY Year DESC, Electricity DESC, Power_Renewable DESC, Power_Consumed DESC
 
 with duckdb.connect("project.db") as con:
     result = con.execute(query)
-    print(result.fetchdf())  # Converta para DataFrame pandas para melhor visualização
+    df = result.fetchdf()
+    df.to_csv("./Consultas/querySixth.csv", index=False)  # Salva em CSV sem incluir o índice
+    print(df)                                 # Printar no terminal

@@ -43,5 +43,6 @@ ORDER BY
 
 with duckdb.connect("project.db") as con:
     result = con.execute(query)
-    print(result.fetchdf())  # Converta para DataFrame pandas para melhor visualização
-    
+    df = result.fetchdf()
+    df.to_csv("../Consultas/queryFirsty.csv", index=False)  # Salva em CSV sem incluir o índice
+    print(df)                                 # Printar no terminal
