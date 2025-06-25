@@ -1,5 +1,8 @@
 import duckdb
 
+# O intuito dessa query é analisar para cada setor qual é o pais que mais contribui,
+# e quanto de energia o setor emite por esse pais e no total
+
 query = '''
 WITH SectorEmissions AS (
     SELECT 
