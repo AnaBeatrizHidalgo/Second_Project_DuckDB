@@ -3,14 +3,16 @@ import duckdb
 # Query com as informações de energy
 
 query ='''
-Select Country,
-       Year,
-       Power_Source,
-       Power_is_renewable,
-       Power_Generation,
-       CO2_Emission_Power
+SELECT
+  Country,
+  ROUND(AVG(Renewable_share_pct), 2) AS avg_renewable_pct
 FROM info_pais
-ORDER BY Power_Generation DESC, CO2_Emission_Power DESC, Year DESC;
+WHERE Year BETWEEN EXTRACT(YEAR FROM CURRENT_DATE) - 9 AND EXTRACT(YEAR FROM CURRENT_DATE)
+  AND Renewable_share_pct IS NOT NULL
+GROUP BY Country
+HAVING COUNT(*) >= 5
+ORDER BY avg_renewable_pct DESC
+LIMIT 10;
 '''
 
 
