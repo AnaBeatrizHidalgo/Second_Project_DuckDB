@@ -1,6 +1,7 @@
 import duckdb
 
-# Query com as informações de emissão de CO2 por pais
+# Query reflete a relação linear geral entre % de renovavel e emissões de CO2 em todas essas observações combinadas
+# Valor negativo quer dizer que quanto mais renovavel menos CO2
 
 query = '''
 SELECT
